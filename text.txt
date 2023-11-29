@@ -1,0 +1,10 @@
+Hi there!
+
+I am currently trying to use the Dart SDK but am quite new to Dart, Flutter and Appwrite. I got some programming experience though. I have some topics:
+
+1. I suppose I would need to use an API key or a JWT token to make a database request. It is not documented in the [examples](https://appwrite.io/docs/references/cloud/client-flutter/databases) - If this is correct, I'd take the chance to make a small contribution and update it [here](https://github.com/appwrite/docs/blob/main/app/views/docs/databases.phtml).
+
+2. [Here](https://appwrite.io/docs/products/auth/jwt) I've read that a server application should create a client with the JWT token for every single request and close it afterward for security reasons. Naturally, I would only create one instance of `Client`, `Account` and `Databases` to reduce overhead. Any thoughts on this?
+
+3. I was thinking about `try catching` my database requests and if the error shows that the token is outdated or missing I would automatically create a new one using my `Account` instance (if it is useable, otherwise ask the user to log in again) and update the token on my `Client` instance. It looks like the `Databases` is holding the `Client` instance, hence it should work without the need to recreate the database client. So I wondered if there is some middleware mechanism, but couldn't find one. If there is really nothing - is it planned? I am now going to extend on `Databases` and overwrite the methods I use to automatically regenerate the JWT token if required, but that feels a bit off, and I am also not sure if it can be done better in Dart.
+

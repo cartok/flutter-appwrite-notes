@@ -142,9 +142,9 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    String _dynamicMsg =
+    String dynamicMsg =
         _isDemoUsingDynamicColors ? ' (dynamic)' : ' (not dynamic)';
-    String _harmonizedMsg = _isDemoUsingDynamicColors
+    String harmonizedMsg = _isDemoUsingDynamicColors
         ? ' (harmonized with ColorScheme.primary)'
         : ' (not harmonized)';
 
@@ -156,16 +156,16 @@ class _HomeState extends State<Home> {
           children: [
             ColoredSquare(
               Theme.of(context).colorScheme.primary,
-              'ColorScheme.primary$_dynamicMsg',
+              'ColorScheme.primary$dynamicMsg',
             ),
             ColoredSquare(
               Theme.of(context).extension<CustomColors>()!.danger,
-              'CustomColors.danger$_harmonizedMsg',
+              'CustomColors.danger$harmonizedMsg',
             ),
             TextField(
               controller: _textEditingController,
               decoration: InputDecoration(
-                errorText: 'This color is ColorScheme.error$_dynamicMsg',
+                errorText: 'This color is ColorScheme.error$dynamicMsg',
               ),
             ),
           ],

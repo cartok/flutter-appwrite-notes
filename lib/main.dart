@@ -1,31 +1,23 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sizer/sizer.dart';
-// import 'package:notes_tasks/screens/login_screen.dart';
-import 'package:notes_tasks/screens/notes_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:notes_tasks/app.dart';
+import 'package:notes_tasks/prefs.dart';
+import 'package:notes_tasks/bloc_logs.dart';
 
 void main() async {
-  runApp(const MyApp());
-}
+  WidgetsFlutterBinding.ensureInitialized();
+  prefs = await SharedPreferences.getInstance();
+  await dotenv.load(fileName: ".env");
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Sizer(
-      builder: (context, orientation, deviceType) => MaterialApp(
-        builder: FToastBuilder(),
-        debugShowCheckedModeBanner: false,
-        title: 'Notes & Tasks',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: const NotesScreen(),
-      ),
-    );
-  }
+  // TODO: Understand `runZoned` and replace cause deprecated.
+  BlocOverrides.runZoned(
+    () {
+      WidgetsFlutterBinding.ensureInitialized();
+      runApp(const App());
+    },
+    blocObserver: BlocLogs(),
+  );
 }
