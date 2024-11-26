@@ -17,7 +17,7 @@ class App extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           useMaterial3: true,
         ),
-        initialRoute: '/notes',
+        initialRoute: '/',
         routes: {
           // TODO: Skip login screen if possible.
           '/': (context) => const LoginScreen(),

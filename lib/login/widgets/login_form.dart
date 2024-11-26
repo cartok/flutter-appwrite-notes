@@ -1,9 +1,10 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
+
 import 'package:notes_tasks/appwrite/account.dart';
 import 'package:notes_tasks/prefs.dart';
-import 'package:sizer/sizer.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -113,6 +114,41 @@ class LoginFormState extends State<LoginForm> {
                     );
                   },
                   child: const Text('Register'),
+                ),
+                // The OAUTH Section
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15.sp),
+                  child: Column(
+                    children: [
+                      Text('Login via ...'),
+                      SizedBox(height: 5.sp),
+                      Wrap(
+                        direction: Axis.vertical,
+                        spacing: 5.sp,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () async {
+                              print('auth asdfasdf');
+                              final foo = await account.createOAuth2Session(
+                                provider: 'github',
+                              );
+                              print('auth result: $foo');
+                            },
+                            child: const Text('Github'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              final foo = await account.createOAuth2Session(
+                                provider: 'google',
+                              );
+                              print(foo);
+                            },
+                            child: const Text('Google'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () {

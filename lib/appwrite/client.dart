@@ -11,6 +11,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 Client client = Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
     .setProject(dotenv.get('PROJECT_ID'))
+    // TODO: Why did I need self signed, for local linux or browser builds?
     .setSelfSigned(
       status: true,
     );

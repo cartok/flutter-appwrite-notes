@@ -60,6 +60,7 @@ class _NotesListState extends State<NotesList> {
             ) {
               // TODO: Looks like I can remove `LayoutBuilder` as `VisibilityDetector` is enough.
               print('height: ${constraints.biggest.height}');
+              // TODO: Propably I should move the scroll view to the view file.
               return SingleChildScrollView(
                 controller: _scrollController,
                 child: Column(

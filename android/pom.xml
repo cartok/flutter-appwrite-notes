@@ -1,0 +1,7 @@
+<dependencies>
+    <dependency>
+        <groupId>io.appwrite</groupId>
+        <artifactId>sdk-for-android</artifactId>
+        <version>4.0.1</version>
+    </dependency>
+</dependencies>

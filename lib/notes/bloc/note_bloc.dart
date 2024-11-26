@@ -88,6 +88,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
 
     DocumentList? response;
     try {
+      print('last document id: $lastDocumentId');
       // Request some notes.
       response = await database.listDocuments(
         databaseId: Database.databaseId,
@@ -96,8 +97,8 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
           Query.limit(pageSize),
           // TODO: Cursor does not work when i have both tier and index order query enabled.
           // Probably only one order command works and it's due to how SQL works https://stackoverflow.com/questions/27931257/how-to-combine-two-sql-queries-with-different-order-by-clauses
-          // if (lastDocumentId != null) Query.cursorAfter(lastDocumentId!),
-          Query.offset(state.notes.length),
+          if (lastDocumentId != null) Query.cursorAfter(lastDocumentId!),
+          // Query.offset(state.notes.length),
           Query.orderDesc('tier'),
           Query.orderAsc('index'),
         ],

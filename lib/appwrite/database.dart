@@ -24,11 +24,28 @@ class Database extends Databases {
     return _instance!;
   }
 
+  /// Handle database call errors. Automatically refresh JWT token if required.
   Future<T> wrap<T>(Future<T> Function() closure) async {
     try {
       return await closure();
     } catch (e) {
+      print('Error when requesting the DB.');
       inspect(e);
+
+      // TODO: Which error codes should I really look at?
+      // https://appwrite.io/docs/advanced/platform/response-codes
+      const List<String> exceptionTypes = [
+        'user_jwt_invalid',
+        'user_invalid_token'
+      ];
+
+      // TODO: Maybe simply check for the `type(s?)` allone.
+      if (!(e is AppwriteException) ||
+          e.code != 401 ||
+          !exceptionTypes.any((type) => type == e.type)) {
+        // TODO: Create and send a Bloc event, listen to it in view and redirect to login screen.
+        rethrow;
+      }
 
       try {
         var jwt = await account.createJWT();
@@ -36,15 +53,11 @@ class Database extends Databases {
 
         return await closure();
       } catch (e) {
+        print('Could not set JWT.');
         inspect(e);
 
-        // TODO: Rather check error type string.
-        if (e is AppwriteException && e.code == 401) {
-          // TODO: Create and send a Bloc event, listen to it in view and redirect to login screen.
-          rethrow;
-        }
-
-        throw Exception('Unexpected error while refreshing JWT.'
+        // TODO: Handle the exception better?
+        throw Exception('Unexpected error while refreshing JWT. '
             'Check the database configuration.');
       }
     }
