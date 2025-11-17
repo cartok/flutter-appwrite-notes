@@ -10,10 +10,6 @@ A login screen with user Registration and Third-party login (Github and Google).
 
 The starting page, if not configured differently (unimplemented feature). The user can create notes using a floating action button on the bottom right, which opens a modal. The page shows priority groups (e.g. High, Mid, Low) where tasks can be draged in. If a new task was created it appears at the bottom if no priority was set in the modal already. Not sure if it should be a feature maybe it could be smarter to let the user just write text and then scroll it into view to allow clicking on it which then opens a UI like a bottom sheet or modal to edit text and settings. The user could then drag the note into a group.
 
-### Tasks
-
-**Wird evtl. zu viel für die kurze Zeit.**
-
 ## Design
 
 ### Resources
